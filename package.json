@@ -1,0 +1,37 @@
+{
+  "name": "bitpos-nfc",
+  "version": "1.0.0",
+  "description": "an easy bitcoin payment method",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fabio-Menjivar/bitPOS-NFC.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "lightning",
+    "POS",
+    "easy"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fabio-Menjivar/bitPOS-NFC/issues"
+  },
+  "homepage": "https://github.com/Fabio-Menjivar/bitPOS-NFC#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
