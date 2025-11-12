@@ -16,5 +16,5 @@ app.get('/', (req: Request, res: Response) => {
 app.use(paymentRoutes);
 
 app.listen(port, () => {
-    console.log(`server running on port ${process.env.SERVER_PORT}`);
+    console.log(`server running on port ${port}`);
 });

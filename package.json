@@ -2,31 +2,33 @@
   "name": "bitpos-nfc",
   "version": "1.0.0",
   "description": "an easy bitcoin payment method",
-  "main": "index.js",
-  "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Fabio-Menjivar/bitPOS-NFC.git"
-  },
   "keywords": [
     "bitcoin",
     "lightning",
     "POS",
     "easy"
   ],
-  "author": "",
-  "license": "MIT",
+  "homepage": "https://github.com/Fabio-Menjivar/bitPOS-NFC#readme",
   "bugs": {
     "url": "https://github.com/Fabio-Menjivar/bitPOS-NFC/issues"
   },
-  "homepage": "https://github.com/Fabio-Menjivar/bitPOS-NFC#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fabio-Menjivar/bitPOS-NFC.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
   "dependencies": {
     "@prisma/client": "^6.19.0",
     "axios": "^1.13.2",
+    "bcryptjs": "^3.0.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "dotenv": "^17.2.3",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.9.36",
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.5",
     "@types/node": "^24.10.0",
     "prisma": "^6.19.0",
