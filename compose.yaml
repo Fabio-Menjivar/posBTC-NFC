@@ -9,10 +9,14 @@
 # https://github.com/docker/awesome-compose
 services:
   server:
+    container_name: bitpos-nfc
     build:
       context: .
+    env_file:
+      - .env
     environment:
       NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
     ports:
       - 3000:3000
 

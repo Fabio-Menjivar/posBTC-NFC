@@ -42,6 +42,9 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 # Copy the rest of the source files into the image.
 COPY . .
+# Generate Prisma Client
+ENV DATABASE_URL "postgresql://user:password@host:port/database"
+RUN npx prisma generate
 # Run the build script.
 RUN npm run build
 
@@ -53,9 +56,6 @@ FROM base as final
 # Use production node environment by default.
 ENV NODE_ENV production
 
-# Run the application as a non-root user.
-USER node
-
 # Copy package.json so that package manager commands can be used.
 COPY package.json .
 
@@ -64,9 +64,26 @@ COPY package.json .
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
 
+# Copy Prisma schema and migrations
+COPY --from=build /usr/src/app/prisma ./prisma
+
+# Copy generated Prisma Client from build stage
+COPY --from=build /usr/src/app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=build /usr/src/app/node_modules/@prisma/client ./node_modules/@prisma/client
+
+# Copy docker entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Change ownership of all files to node user
+RUN chown -R node:node /usr/src/app
+
+# Run the application as a non-root user.
+USER node
 
 # Expose the port that the application listens on.
 EXPOSE 3000
 
 # Run the application.
-CMD npm start
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD []
