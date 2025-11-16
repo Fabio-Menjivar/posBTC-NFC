@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -10,8 +9,47 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  walletId  String   @unique // ID de la wallet en LNbits
   username  String   @unique
   password  String   
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wallets   Wallet[]
+
+  @@map("users")
+}
+
+model Wallet {
+  id Int @id @default(autoincrement())
+  userId Int
+  adminKey String @unique
+  invoiceKey String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: id, onDelete: Cascade)
+  cards Card[]
+
+  @@map("wallets")
+
+}
+
+enum CardStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+model Card {
+  id Int @id @default(autoincrement())
+  uid String @unique
+  walletId Int
+  status CardStatus @default(ACTIVE)
+  metadata Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@map("cards")
 }
